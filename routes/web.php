@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,10 +45,7 @@ Route::get('/password-updated', function () {
 })->name('password.updated');
 
 Route::resource('products', ProductController::class);
-
-Route::get('/categories', function () {
-    return view('categories.index');
-})->name('categories.index');
+Route::resource('categories', CategoryController::class);
 
 Route::get('/suppliers', function () {
     return view('suppliers.index');
