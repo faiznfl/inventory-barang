@@ -11,8 +11,12 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', function () {
-    return back()->with('error', 'Invalid email or password');
+    return redirect()->route('dashboard');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -38,7 +42,22 @@ Route::get('/password-updated', function () {
     return view('auth.password-updated');
 })->name('password.updated');
 
+Route::get('/products', function () {
+    return view('products.index');
+})->name('products.index');
 
+Route::get('/categories', function () {
+    return view('categories.index');
+})->name('categories.index');
 
+Route::get('/suppliers', function () {
+    return view('suppliers.index');
+})->name('suppliers.index');
 
+Route::get('/stock-transactions', function () {
+    return view('stock-transactions.index');
+})->name('stock-transactions.index');
 
+Route::get('/reports', function () {
+    return view('reports.index');
+})->name('reports.index');

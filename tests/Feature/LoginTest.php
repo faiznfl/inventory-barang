@@ -15,3 +15,11 @@ test('root redirects to login page', function () {
     $response->assertRedirect('/login');
 });
 
+test('login form submission redirects to dashboard', function () {
+    $response = $this->post('/login', [
+        'email' => 'admin@fixoria.com',
+        'password' => 'password123',
+    ]);
+
+    $response->assertRedirect('/dashboard');
+});
