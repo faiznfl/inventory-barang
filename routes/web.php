@@ -61,3 +61,7 @@ Route::get('/stock-transactions', function () {
 Route::get('/reports', function () {
     return view('reports.index');
 })->name('reports.index');
+
+Route::get('/users', function () {
+    return view('users.index');
+})->name('users.index');

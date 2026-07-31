@@ -121,15 +121,44 @@
             font-variation-settings: 'FILL' 1;
         }
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3F4F6;
         }
         ::-webkit-scrollbar-thumb {
-            background: #D1D5DB;
+            background: #C5C9D3;
             border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+
+        /* Clean select styling with custom vector chevron */
+        select {
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23474555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 0.75rem center !important;
+            background-size: 1rem !important;
+            padding-right: 2.5rem !important;
+        }
+
+        /* Remove browser default spinner arrows from number inputs */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
         }
     </style>
 </head>
-<body class="font-body-md text-body-md min-h-screen flex overflow-hidden">
+<body class="font-body-md text-body-md h-screen w-screen flex overflow-hidden">
     <!-- Sidebar Navigation -->
     <aside class="w-64 bg-white border-r border-border flex flex-col h-screen shrink-0 z-50">
         <!-- Brand Identity -->
@@ -168,6 +197,10 @@
                 <span class="material-symbols-outlined {{ request()->routeIs('reports.*') ? 'fill-icon' : '' }}">assessment</span>
                 <span class="font-semibold">Laporan</span>
             </a>
+            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('users.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('users.index') }}">
+                <span class="material-symbols-outlined {{ request()->routeIs('users.*') ? 'fill-icon' : '' }}">manage_accounts</span>
+                <span class="font-semibold">Pengguna & Role</span>
+            </a>
         </nav>
 
         <!-- User Profile Section -->
@@ -191,7 +224,7 @@
     </aside>
 
     <!-- Main Content Canvas -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto scroll-smooth">
         <!-- TopAppBar -->
         <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-border/50">
             <div class="flex-1 max-w-xl">
