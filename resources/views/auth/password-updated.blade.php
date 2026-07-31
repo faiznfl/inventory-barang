@@ -49,7 +49,7 @@
 
             // Confetti Blast Effect
             function createConfetti() {
-                const colors = ['#5b46e2', '#4226ca', '#c6bfff', '#dfd9ff'];
+                const colors = ['#2563eb', '#1d4ed8', '#bfdbfe', '#dbeafe'];
                 for (let i = 0; i < 40; i++) {
                     const confetti = document.createElement('div');
                     confetti.className = 'fixed w-2 h-2 rounded-xs pointer-events-none z-50';
