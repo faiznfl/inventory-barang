@@ -48,11 +48,11 @@
                             <th class="px-6 py-4 w-12">
                                 <input class="rounded border-border text-primary focus:ring-primary" type="checkbox" id="select-all">
                             </th>
-                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider">Nama Kategori</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider">Total Produk</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider">Deskripsi</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider">Pembaruan Terakhir</th>
-                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider text-right">Aksi</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider whitespace-nowrap">Nama Kategori</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider whitespace-nowrap">Total Produk</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider whitespace-nowrap">Deskripsi</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider whitespace-nowrap">Pembaruan Terakhir</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-secondary uppercase tracking-wider text-right whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border">

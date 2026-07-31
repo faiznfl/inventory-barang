@@ -23,6 +23,7 @@ class Product extends Model
         'min_stock',
         'unit',
         'description',
+        'image',
         'is_active',
     ];
 

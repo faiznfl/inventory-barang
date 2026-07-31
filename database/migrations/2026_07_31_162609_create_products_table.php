@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('min_stock')->default(10);
             $table->string('unit')->default('Pcs');
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

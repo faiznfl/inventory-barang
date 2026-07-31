@@ -47,13 +47,13 @@
                         <th class="px-6 py-4 w-12">
                             <input class="rounded border-border text-primary-container focus:ring-primary-container" type="checkbox" id="select-all">
                         </th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Nama Supplier</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Nama Kontak</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Kategori Produk</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Telepon / WA</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Email</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">Status</th>
-                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs text-center">Aksi</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Nama Supplier</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Nama Kontak</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Kategori Produk</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Telepon / WA</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Email</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs whitespace-nowrap">Status</th>
+                        <th class="px-6 py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-xs text-center whitespace-nowrap">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-border">

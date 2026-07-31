@@ -6,7 +6,7 @@
                 <h2 class="font-display-lg text-display-lg text-on-surface">Data Produk</h2>
                 <p class="font-body-md text-body-md text-on-surface-variant">Kelola daftar inventaris barang dan stok di sini.</p>
             </div>
-            <a href="{{ route('products.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95">
+            <a href="{{ route('products.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95 shrink-0">
                 <span class="material-symbols-outlined">add</span>
                 Tambah Produk Baru
             </a>
@@ -14,7 +14,7 @@
 
         <!-- Notification Alert -->
         @if(session('success'))
-            <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-sm flex items-center justify-between">
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-sm flex items-center justify-between shadow-xs">
                 <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined text-emerald-600">check_circle</span>
                     <span class="font-semibold">{{ session('success') }}</span>
@@ -54,35 +54,45 @@
         <!-- Data Table Section -->
         <div class="bg-white rounded-xl card-shadow border border-border overflow-hidden">
             <div class="overflow-x-auto custom-scrollbar">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead class="bg-surface-container-low border-b border-border">
                         <tr>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SKU</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nama Barang</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Kategori</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Supplier</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Harga Beli</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Harga Jual</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Stok Saat Ini</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Satuan</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">Aksi</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">SKU</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Foto</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Nama Barang</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Kategori</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Supplier</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Harga Beli</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Harga Jual</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Stok Saat Ini</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Satuan</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider whitespace-nowrap">Status</th>
+                            <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border">
                         @forelse($products as $product)
                             <tr class="hover:bg-canvas transition-colors">
-                                <td class="px-6 py-4 font-body-md text-on-surface font-mono text-xs">{{ $product->sku }}</td>
-                                <td class="px-6 py-4 font-body-md text-on-surface font-semibold">{{ $product->name }}</td>
-                                <td class="px-6 py-4 font-body-md text-on-surface-variant">
+                                <td class="px-6 py-4 font-body-md text-on-surface font-mono text-xs whitespace-nowrap">{{ $product->sku }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-12 h-12 object-cover rounded-xl border border-border shadow-xs" />
+                                    @else
+                                        <div class="w-12 h-12 rounded-xl bg-canvas border border-border flex items-center justify-center text-outline">
+                                            <span class="material-symbols-outlined text-2xl">inventory_2</span>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 font-body-md text-on-surface font-semibold whitespace-nowrap">{{ $product->name }}</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface-variant whitespace-nowrap">
                                     <span class="px-2 py-0.5 rounded bg-surface-container text-xs font-semibold">
                                         {{ $product->category->name ?? '-' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 font-body-md text-on-surface-variant">{{ $product->supplier->name ?? '-' }}</td>
-                                <td class="px-6 py-4 font-body-md text-on-surface">Rp {{ number_format($product->purchase_price, 0, ',', '.') }}</td>
-                                <td class="px-6 py-4 font-body-md text-on-surface font-bold text-primary">Rp {{ number_format($product->selling_price, 0, ',', '.') }}</td>
-                                <td class="px-6 py-4 font-body-md text-on-surface">
+                                <td class="px-6 py-4 font-body-md text-on-surface-variant whitespace-nowrap">{{ $product->supplier->name ?? '-' }}</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface whitespace-nowrap">Rp {{ number_format($product->purchase_price, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface font-bold text-primary whitespace-nowrap">Rp {{ number_format($product->selling_price, 0, ',', '.') }}</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface whitespace-nowrap">
                                     <span class="flex items-center gap-2">
                                         <span class="{{ $product->stock <= $product->min_stock ? 'text-error-text font-bold' : 'text-on-surface font-semibold' }}">
                                             {{ $product->stock }}
@@ -90,16 +100,19 @@
                                         <span class="text-on-surface-variant text-xs">(Min: {{ $product->min_stock }})</span>
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 font-body-md text-on-surface">{{ $product->unit }}</td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 font-body-md text-on-surface whitespace-nowrap">{{ $product->unit }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     @if($product->is_active)
                                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-700 uppercase">Active</span>
                                     @else
                                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-surface-variant text-on-surface-variant uppercase">Inactive</span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 text-right">
+                                <td class="px-6 py-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-3">
+                                        <a href="{{ route('products.edit', $product) }}" class="text-outline hover:text-primary transition-colors p-1" title="Edit Produk">
+                                            <span class="material-symbols-outlined text-xl">edit</span>
+                                        </a>
                                         <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');" class="inline">
                                             @csrf
                                             @method('DELETE')
