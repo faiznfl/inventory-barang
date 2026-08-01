@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,9 +48,7 @@ Route::get('/password-updated', function () {
 Route::resource('products', ProductController::class);
 Route::resource('categories', CategoryController::class);
 
-Route::get('/suppliers', function () {
-    return view('suppliers.index');
-})->name('suppliers.index');
+Route::resource('suppliers', SupplierController::class);
 
 Route::get('/stock-transactions', function () {
     return view('stock-transactions.index');

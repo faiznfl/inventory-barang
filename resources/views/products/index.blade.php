@@ -110,13 +110,13 @@
                                 </td>
                                 <td class="px-6 py-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-3">
-                                        <a href="{{ route('products.edit', $product) }}" class="text-outline hover:text-primary transition-colors p-1" title="Edit Produk">
+                                        <a href="{{ route('products.edit', $product) }}" class="p-2 hover:bg-surface-container rounded-lg text-primary transition-colors inline-flex items-center" title="Edit Produk">
                                             <span class="material-symbols-outlined text-xl">edit</span>
                                         </a>
                                         <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-outline hover:text-error transition-colors p-1" title="Hapus Produk">
+                                            <button type="submit" class="p-2 hover:bg-error-container rounded-lg text-error transition-colors inline-flex items-center" title="Hapus Produk">
                                                 <span class="material-symbols-outlined text-xl">delete</span>
                                             </button>
                                         </form>

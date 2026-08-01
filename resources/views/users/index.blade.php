@@ -110,15 +110,15 @@
                                     <td class="px-6 py-4 text-sm text-secondary">
                                         {{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    <td class="px-6 py-4 text-right whitespace-nowrap">
                                         <div class="flex justify-end gap-2">
-                                            <button class="p-2 text-secondary hover:text-primary hover:bg-primary/5 rounded-lg transition-all" title="Edit User" type="button">
+                                            <button class="p-2 hover:bg-surface-container rounded-lg text-primary transition-colors inline-flex items-center" title="Edit User" type="button">
                                                 <span class="material-symbols-outlined text-xl">edit</span>
                                             </button>
-                                            <button class="p-2 text-secondary hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all" title="Reset Password" type="button">
+                                            <button class="p-2 hover:bg-surface-container rounded-lg text-secondary transition-colors inline-flex items-center" title="Reset Password" type="button">
                                                 <span class="material-symbols-outlined text-xl">lock_reset</span>
                                             </button>
-                                            <button class="p-2 text-secondary hover:text-error-text hover:bg-error-bg rounded-lg transition-all" title="Hapus User" type="button">
+                                            <button class="p-2 hover:bg-error-container rounded-lg text-error transition-colors inline-flex items-center" title="Hapus User" type="button">
                                                 <span class="material-symbols-outlined text-xl">delete</span>
                                             </button>
                                         </div>
