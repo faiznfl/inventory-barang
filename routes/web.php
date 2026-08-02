@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,9 +51,8 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('suppliers', SupplierController::class);
 
-Route::get('/stock-transactions', function () {
-    return view('stock-transactions.index');
-})->name('stock-transactions.index');
+Route::get('/stock-transactions', [StockTransactionController::class, 'index'])->name('stock-transactions.index');
+Route::post('/stock-transactions', [StockTransactionController::class, 'store'])->name('stock-transactions.store');
 
 Route::get('/reports', function () {
     return view('reports.index');
