@@ -1,33 +1,39 @@
 <x-layouts.app title="Manajemen Kategori - Fixoria Sales">
-    <div class="p-8 space-y-6">
+    <div class="p-6 md:p-8 space-y-6">
         <!-- Page Header -->
-        <div class="flex justify-between items-center">
+        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h2 class="font-display-lg text-display-lg text-on-surface">Manajemen Kategori</h2>
-                <nav class="flex text-xs text-secondary gap-2 mt-1">
+                <nav class="flex text-xs text-secondary items-center gap-2 mt-1">
                     <a class="hover:text-primary transition-colors" href="{{ route('dashboard') }}">Dashboard</a>
-                    <span>/</span>
+                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
                     <span class="text-on-surface font-semibold">Kategori</span>
                 </nav>
             </div>
-            <button class="bg-primary-container text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md" type="button">
-                <span class="material-symbols-outlined text-xl">add</span>
+            <a href="{{ route('categories.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95 shrink-0">
+                <span class="material-symbols-outlined text-[20px]">add</span>
                 <span>Tambah Kategori</span>
-            </button>
-        </div>
+            </a>
+        </header>
 
         <!-- Filter & Search Section -->
-        <div class="surface-card p-4 flex flex-col md:flex-row gap-4 items-center justify-between border border-border/50">
-            <div class="flex items-center gap-4 w-full md:w-auto">
-                <div class="relative w-full md:w-80">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-lg">search</span>
-                    <input class="w-full h-10 pl-10 pr-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" placeholder="Cari nama kategori..." type="text">
+        <div class="surface-card rounded-xl p-4 border border-border/50">
+            <form method="GET" action="{{ route('categories.index') }}" class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 w-full md:w-auto grow max-w-2xl">
+                    <div class="relative grow min-w-[240px] flex items-center">
+                        <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+                        <input class="w-full h-10 pl-10 pr-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" name="search" value="{{ request('search') }}" placeholder="Cari nama kategori..." type="text">
+                    </div>
+                    <button type="submit" class="h-10 flex items-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        <span>Cari</span>
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('categories.index') }}" class="h-10 flex items-center px-3 text-xs text-secondary hover:text-primary transition-colors shrink-0">Reset</a>
+                    @endif
                 </div>
-                <button class="flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm font-medium text-on-secondary-fixed-variant hover:bg-canvas transition-colors" type="button">
-                    <span class="material-symbols-outlined text-lg">filter_list</span>
-                    <span>Filter</span>
-                </button>
-            </div>
+            </form>
+        </div>
             <div class="flex items-center gap-3 text-sm text-secondary">
                 <span>Show</span>
                 <select class="bg-white border border-border rounded-lg py-1 px-3 text-sm focus:ring-primary/20 outline-none">

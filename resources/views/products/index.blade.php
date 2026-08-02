@@ -1,14 +1,18 @@
 <x-layouts.app title="Master Produk - Fixoria Sales">
     <div class="p-6 md:p-8 space-y-6">
-        <!-- Top App Bar Content -->
+        <!-- Page Header -->
         <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h2 class="font-display-lg text-display-lg text-on-surface">Data Produk</h2>
-                <p class="font-body-md text-body-md text-on-surface-variant">Kelola daftar inventaris barang dan stok di sini.</p>
+                <nav class="flex text-xs text-secondary items-center gap-2 mt-1">
+                    <a class="hover:text-primary transition-colors" href="{{ route('dashboard') }}">Dashboard</a>
+                    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                    <span class="text-on-surface font-semibold">Master Produk</span>
+                </nav>
             </div>
             <a href="{{ route('products.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95 shrink-0">
-                <span class="material-symbols-outlined">add</span>
-                Tambah Produk Baru
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>Tambah Produk Baru</span>
             </a>
         </header>
 
@@ -26,33 +30,42 @@
         @endif
 
         <!-- Filter Area -->
-        <section class="bg-white p-5 rounded-xl card-shadow border border-border">
-            <form action="{{ route('products.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-12 gap-4">
-                <div class="relative md:col-span-6">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-                    <input class="w-full pl-10 pr-4 py-2 bg-white border border-border rounded-lg text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan Nama atau SKU..." type="text">
-                </div>
-                <div class="md:col-span-3">
-                    <select name="category_id" onchange="this.form.submit()" class="w-full px-4 py-2 bg-white border border-border rounded-lg text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none">
-                        <option value="">Semua Kategori</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="md:col-span-3">
-                    <select name="supplier_id" onchange="this.form.submit()" class="w-full px-4 py-2 bg-white border border-border rounded-lg text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none">
-                        <option value="">Semua Supplier</option>
-                        @foreach($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
-                        @endforeach
-                    </select>
+        <div class="surface-card rounded-xl p-4 border border-border/50">
+            <form action="{{ route('products.index') }}" method="GET" class="flex flex-col lg:flex-row items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3 w-full grow">
+                    <div class="relative grow min-w-[240px] flex items-center">
+                        <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
+                        <input class="w-full h-10 pl-10 pr-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan Nama atau SKU..." type="text">
+                    </div>
+                    <div class="w-full sm:w-48">
+                        <select name="category_id" onchange="this.form.submit()" class="w-full h-10 px-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none">
+                            <option value="">Semua Kategori</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="w-full sm:w-48">
+                        <select name="supplier_id" onchange="this.form.submit()" class="w-full h-10 px-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none">
+                            <option value="">Semua Supplier</option>
+                            @foreach($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="h-10 flex items-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Cari
+                    </button>
+                    @if(request('search') || request('category_id') || request('supplier_id'))
+                        <a href="{{ route('products.index') }}" class="h-10 flex items-center px-3 text-xs text-secondary hover:text-primary transition-colors shrink-0">Reset</a>
+                    @endif
                 </div>
             </form>
-        </section>
+        </div>
 
         <!-- Data Table Section -->
-        <div class="bg-white rounded-xl card-shadow border border-border overflow-hidden">
+        <div class="surface-card rounded-xl overflow-hidden border border-border/50">
             <div class="overflow-x-auto custom-scrollbar">
                 <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead class="bg-surface-container-low border-b border-border">

@@ -226,12 +226,29 @@
     <!-- Main Content Canvas -->
     <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto scroll-smooth">
         <!-- TopAppBar -->
-        <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-border/50">
-            <div class="flex-1 max-w-xl">
-                <div class="relative group">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
-                    <input class="w-full bg-canvas border-none focus:ring-2 focus:ring-primary rounded-lg pl-11 pr-4 py-2 text-sm transition-all" placeholder="Cari data produk, transaksi, atau supplier..." type="text">
-                </div>
+        <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-border/50 shrink-0">
+            <div class="flex-1 max-w-xl flex items-center h-full">
+                @php
+                    $searchAction = route('products.index');
+                    $searchPlaceholder = 'Cari data produk, SKU, supplier...';
+
+                    if (request()->routeIs('categories.*')) {
+                        $searchAction = route('categories.index');
+                        $searchPlaceholder = 'Cari nama kategori...';
+                    } elseif (request()->routeIs('suppliers.*')) {
+                        $searchAction = route('suppliers.index');
+                        $searchPlaceholder = 'Cari nama supplier, email, telepon...';
+                    } elseif (request()->routeIs('products.*')) {
+                        $searchAction = route('products.index');
+                        $searchPlaceholder = 'Cari nama produk, SKU...';
+                    }
+                @endphp
+                <form action="{{ $searchAction }}" method="GET" class="relative flex items-center w-full h-10 my-auto group" id="global-header-search-form">
+                    <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center text-outline group-focus-within:text-primary transition-colors hover:text-primary focus:outline-none" title="Cari">
+                        <span class="material-symbols-outlined text-[20px]">search</span>
+                    </button>
+                    <input id="global-header-search" name="search" value="{{ request('search') }}" class="w-full h-10 bg-canvas border border-transparent focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 pr-4 text-sm transition-all outline-none" placeholder="{{ $searchPlaceholder }}" type="text" autocomplete="off">
+                </form>
             </div>
             <div class="flex items-center gap-6">
                 <button class="relative p-2 text-secondary hover:bg-surface-container-low rounded-full transition-all" type="button">
@@ -261,5 +278,22 @@
             </div>
         </footer>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerSearch = document.getElementById('global-header-search');
+            const localUserSearch = document.getElementById('user-search-input');
+
+            if (headerSearch && localUserSearch) {
+                if (headerSearch.value) {
+                    localUserSearch.value = headerSearch.value;
+                    localUserSearch.dispatchEvent(new Event('input'));
+                }
+                headerSearch.addEventListener('input', (e) => {
+                    localUserSearch.value = e.target.value;
+                    localUserSearch.dispatchEvent(new Event('input'));
+                });
+            }
+        });
+    </script>
 </body>
 </html>
