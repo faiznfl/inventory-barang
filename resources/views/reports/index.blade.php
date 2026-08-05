@@ -18,50 +18,66 @@
 
         <!-- Report Filter Panel -->
         <section class="surface-card rounded-xl p-6 border border-border">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Filters -->
-                <div class="lg:col-span-8 flex flex-wrap gap-4 items-end">
-                    <div class="w-full sm:w-auto min-w-[280px]">
-                        <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Rentang Tanggal</label>
-                        <div class="relative">
-                            <input class="w-full h-10 pl-10 pr-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm cursor-pointer outline-none" readonly type="text" value="{{ date('01 M Y') }} - {{ date('t M Y') }}">
-                            <span class="material-symbols-outlined absolute left-3 top-2 text-outline text-[20px]">calendar_today</span>
+            <form method="GET" action="{{ route('reports.index') }}">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Filters -->
+                    <div class="lg:col-span-8 flex flex-wrap gap-4 items-end">
+                        <div class="w-full sm:w-auto min-w-[280px]">
+                            <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Rentang Tanggal</label>
+                            <div class="flex items-center gap-2">
+                                <div class="relative flex-1">
+                                    <input class="w-full h-10 pl-9 pr-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-xs outline-none" type="date" name="start_date" value="{{ request('start_date', $startDate ?? '') }}" title="Tanggal Mulai">
+                                    <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px] pointer-events-none">calendar_today</span>
+                                </div>
+                                <span class="text-on-surface-variant font-bold text-xs">-</span>
+                                <div class="relative flex-1">
+                                    <input class="w-full h-10 pl-9 pr-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-xs outline-none" type="date" name="end_date" value="{{ request('end_date', $endDate ?? '') }}" title="Tanggal Selesai">
+                                    <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px] pointer-events-none">calendar_today</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full sm:w-auto min-w-[160px]">
+                            <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Jenis Mutasi</label>
+                            <select name="type" class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
+                                <option value="">Semua</option>
+                                <option value="in" {{ request('type') == 'in' ? 'selected' : '' }}>Barang Masuk</option>
+                                <option value="out" {{ request('type') == 'out' ? 'selected' : '' }}>Barang Keluar</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-auto min-w-[160px]">
+                            <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Kategori</label>
+                            <select name="category_id" class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
+                                <option value="">Semua Kategori</option>
+                                @foreach($categories ?? [] as $category)
+                                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="h-10 px-6 bg-primary text-white rounded-lg font-body-md text-body-md hover:bg-surface-tint transition-all flex items-center gap-2 shadow-sm" type="submit">
+                                <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                Filter
+                            </button>
+                            @if(request()->hasAny(['start_date', 'end_date', 'type', 'category_id']))
+                                <a href="{{ route('reports.index') }}" class="h-10 px-3 border border-border text-on-surface-variant rounded-lg font-body-md text-sm hover:bg-surface-container-low transition-all flex items-center gap-1" title="Reset Filter">
+                                    <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
-                    <div class="w-full sm:w-auto min-w-[180px]">
-                        <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Jenis Mutasi</label>
-                        <select class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
-                            <option value="">Semua</option>
-                            <option value="in">Barang Masuk</option>
-                            <option value="out">Barang Keluar</option>
-                        </select>
+                    <!-- Export Actions -->
+                    <div class="lg:col-span-4 flex justify-end items-end gap-3">
+                        <a href="{{ route('reports.export.pdf', request()->query()) }}" target="_blank" class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
+                            <span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform">picture_as_pdf</span>
+                            Ekspor PDF
+                        </a>
+                        <a href="{{ route('reports.export.csv', request()->query()) }}" class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
+                            <span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">description</span>
+                            CSV / Excel
+                        </a>
                     </div>
-                    <div class="w-full sm:w-auto min-w-[180px]">
-                        <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Kategori</label>
-                        <select class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
-                            <option value="">Semua Kategori</option>
-                            @foreach($categories ?? [] as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <button class="h-10 px-6 bg-primary text-white rounded-lg font-body-md text-body-md hover:bg-surface-tint transition-all flex items-center gap-2 shadow-sm" type="button">
-                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
-                        Filter
-                    </button>
                 </div>
-                <!-- Export Actions -->
-                <div class="lg:col-span-4 flex justify-end items-end gap-3">
-                    <button class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group" type="button">
-                        <span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform">picture_as_pdf</span>
-                        Ekspor PDF
-                    </button>
-                    <button class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group" type="button">
-                        <span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">description</span>
-                        CSV / Excel
-                    </button>
-                </div>
-            </div>
+            </form>
         </section>
 
         <!-- Report Preview Table -->
@@ -83,7 +99,9 @@
                     <tbody class="divide-y divide-border">
                         @forelse($reports ?? [] as $report)
                             <tr class="hover:bg-canvas transition-colors">
-                                <td class="px-6 py-4 text-sm whitespace-nowrap">{{ $report->created_at ? $report->created_at->format('d M Y') : '-' }}</td>
+                                <td class="px-6 py-4 text-sm whitespace-nowrap">
+                                    {{ $report->transaction_date ? $report->transaction_date->format('d M Y H:i') : ($report->created_at ? $report->created_at->format('d M Y H:i') : '-') }}
+                                </td>
                                 <td class="px-6 py-4 text-sm font-semibold whitespace-nowrap">{{ $report->product->sku ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm font-medium">{{ $report->product->name ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-on-surface-variant">{{ $report->product->category->name ?? '-' }}</td>
@@ -98,7 +116,7 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 text-sm text-right font-bold">{{ $report->qty ?? 0 }}</td>
+                                <td class="px-6 py-4 text-sm text-right font-bold">{{ number_format($report->quantity ?? $report->qty ?? 0) }}</td>
                                 <td class="px-6 py-4 text-sm">{{ $report->user->name ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-on-surface-variant">{{ $report->notes ?? '-' }}</td>
                             </tr>
@@ -133,7 +151,13 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-right" colspan="3">
-                                <span class="text-on-surface-variant text-xs">Menampilkan {{ isset($reports) && method_exists($reports, 'count') ? $reports->count() : 0 }} entri</span>
+                                <span class="text-on-surface-variant text-xs">
+                                    @if(isset($reports) && method_exists($reports, 'total'))
+                                        Menampilkan {{ $reports->firstItem() ?? 0 }} - {{ $reports->lastItem() ?? 0 }} dari {{ $reports->total() }} entri
+                                    @else
+                                        Menampilkan {{ count($reports ?? []) }} entri
+                                    @endif
+                                </span>
                             </td>
                         </tr>
                     </tfoot>
@@ -142,35 +166,10 @@
         </section>
 
         <!-- Pagination -->
-        <div class="mt-6 flex justify-between items-center">
-            <p class="text-sm text-on-surface-variant">Hal 1 dari 1</p>
-            <div class="flex gap-2">
-                <button class="w-8 h-8 rounded border border-border flex items-center justify-center hover:bg-surface-container transition-colors disabled:opacity-40" disabled type="button">
-                    <span class="material-symbols-outlined text-[18px]">chevron_left</span>
-                </button>
-                <button class="w-8 h-8 rounded border-none bg-primary text-white flex items-center justify-center font-bold text-xs" type="button">1</button>
-                <button class="w-8 h-8 rounded border border-border flex items-center justify-center hover:bg-surface-container transition-colors disabled:opacity-40" disabled type="button">
-                    <span class="material-symbols-outlined text-[18px]">chevron_right</span>
-                </button>
+        @if(isset($reports) && method_exists($reports, 'links'))
+            <div class="mt-6">
+                {{ $reports->links() }}
             </div>
-        </div>
+        @endif
     </div>
-
-    <!-- Export Micro-interaction Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const exportButtons = document.querySelectorAll('.export-btn');
-            exportButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Memproses...';
-                    btn.classList.add('opacity-70', 'pointer-events-none');
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.classList.remove('opacity-70', 'pointer-events-none');
-                    }, 1500);
-                });
-            });
-        });
-    </script>
 </x-layouts.app>

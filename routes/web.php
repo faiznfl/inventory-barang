@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,10 +56,16 @@ Route::resource('suppliers', SupplierController::class);
 Route::get('/stock-transactions', [StockTransactionController::class, 'index'])->name('stock-transactions.index');
 Route::post('/stock-transactions', [StockTransactionController::class, 'store'])->name('stock-transactions.store');
 
-Route::get('/reports', function () {
-    return view('reports.index');
-})->name('reports.index');
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::get('/reports/export/csv', [ReportController::class, 'exportCsv'])->name('reports.export.csv');
+Route::get('/reports/export/pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
 
-Route::get('/users', function () {
-    return view('users.index');
-})->name('users.index');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+
+Route::post('/roles', [UserController::class, 'storeRole'])->name('roles.store');
+Route::put('/roles/{role}', [UserController::class, 'updateRole'])->name('roles.update');
+Route::delete('/roles/{role}', [UserController::class, 'destroyRole'])->name('roles.destroy');
