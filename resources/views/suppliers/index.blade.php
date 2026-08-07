@@ -1,17 +1,17 @@
 <x-layouts.app title="Manajemen Supplier - Fixoria Sales">
-    <div class="p-6 md:p-8 space-y-6">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6">
         <!-- Page Header -->
-        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <h2 class="font-display-lg text-display-lg text-on-surface">Manajemen Supplier</h2>
+                <h2 class="font-display-lg text-xl sm:text-display-lg text-on-surface">Manajemen Supplier</h2>
                 <nav class="flex text-xs text-secondary items-center gap-2 mt-1">
                     <a class="hover:text-primary transition-colors" href="{{ route('dashboard') }}">Dashboard</a>
                     <span class="material-symbols-outlined text-[14px]">chevron_right</span>
                     <span class="text-on-surface font-semibold">Supplier</span>
                 </nav>
             </div>
-            <a href="{{ route('suppliers.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95 shrink-0">
-                <span class="material-symbols-outlined text-[20px]">add</span>
+            <a href="{{ route('suppliers.create') }}" class="bg-primary-container hover:bg-primary text-white px-4 sm:px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all font-body-md text-xs sm:text-sm shadow-sm active:scale-95 shrink-0">
+                <span class="material-symbols-outlined text-[18px] sm:text-[20px]">add</span>
                 <span>Tambah Supplier</span>
             </a>
         </header>
@@ -29,19 +29,21 @@
         @endif
 
         <!-- Filter Bar Card -->
-        <div class="surface-card rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border border-border/50">
-            <form method="GET" action="{{ route('suppliers.index') }}" class="flex items-center gap-3 grow max-w-2xl">
-                <div class="relative grow flex items-center">
+        <div class="surface-card rounded-xl p-4 border border-border/50">
+            <form method="GET" action="{{ route('suppliers.index') }}" class="flex flex-col sm:flex-row items-center gap-3 w-full grow max-w-2xl">
+                <div class="relative w-full sm:grow flex items-center">
                     <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
                     <input class="w-full h-10 pl-10 pr-4 border border-border rounded-lg text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" name="search" value="{{ request('search') }}" placeholder="Cari nama supplier, kontak, email, atau telepon..." type="text">
                 </div>
-                <button type="submit" class="h-10 flex items-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors">
-                    <span class="material-symbols-outlined text-[18px]">filter_list</span>
-                    Cari
-                </button>
-                @if(request('search'))
-                    <a href="{{ route('suppliers.index') }}" class="h-10 flex items-center px-3 text-xs text-secondary hover:text-primary transition-colors">Reset</a>
-                @endif
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <button type="submit" class="h-10 flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Cari
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('suppliers.index') }}" class="h-10 flex items-center justify-center px-3 text-xs text-secondary hover:text-primary transition-colors shrink-0">Reset</a>
+                    @endif
+                </div>
             </form>
         </div>
 
@@ -126,30 +128,30 @@
                 </table>
             </div>
             @if(isset($suppliers) && method_exists($suppliers, 'links'))
-                <div class="px-6 py-4 border-t border-border bg-surface">
+                <div class="px-4 sm:px-6 py-4 border-t border-border bg-surface">
                     {{ $suppliers->links() }}
                 </div>
             @endif
         </div>
 
         <!-- Summary Cards Footer -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="surface-card rounded-xl p-6 flex items-center gap-4 border border-border/50">
-                <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-[28px]">groups</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div class="surface-card rounded-xl p-5 sm:p-6 flex items-center gap-4 border border-border/50">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined text-[24px] sm:text-[28px]">groups</span>
                 </div>
                 <div>
                     <p class="text-on-surface-variant font-label-sm text-xs">Total Supplier</p>
-                    <h3 class="text-[24px] font-bold text-on-surface">{{ number_format($totalSuppliersCount ?? 0) }}</h3>
+                    <h3 class="text-xl sm:text-[24px] font-bold text-on-surface">{{ number_format($totalSuppliersCount ?? 0) }}</h3>
                 </div>
             </div>
-            <div class="surface-card rounded-xl p-6 flex items-center gap-4 border border-border/50">
-                <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600">
-                    <span class="material-symbols-outlined text-[28px]">check_circle</span>
+            <div class="surface-card rounded-xl p-5 sm:p-6 flex items-center gap-4 border border-border/50">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600 shrink-0">
+                    <span class="material-symbols-outlined text-[24px] sm:text-[28px]">check_circle</span>
                 </div>
                 <div>
                     <p class="text-on-surface-variant font-label-sm text-xs">Supplier Aktif</p>
-                    <h3 class="text-[24px] font-bold text-on-surface">{{ number_format($activeSuppliersCount ?? 0) }}</h3>
+                    <h3 class="text-xl sm:text-[24px] font-bold text-on-surface">{{ number_format($activeSuppliersCount ?? 0) }}</h3>
                 </div>
             </div>
         </div>

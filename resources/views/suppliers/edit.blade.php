@@ -1,7 +1,7 @@
 <x-layouts.app title="Edit Supplier - Fixoria Sales">
-    <div class="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto">
         <!-- Header Container -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-border shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-border shadow-sm">
             <div>
                 <nav class="flex items-center gap-2 text-xs font-semibold text-secondary mb-2">
                     <a href="{{ route('suppliers.index') }}" class="hover:text-primary transition-colors flex items-center gap-1">
@@ -11,15 +11,15 @@
                     <span class="material-symbols-outlined text-[14px]">chevron_right</span>
                     <span class="text-on-surface font-bold">Edit Supplier</span>
                 </nav>
-                <h2 class="font-display-lg text-display-lg text-on-surface tracking-tight">Edit Data Supplier</h2>
-                <p class="font-body-md text-sm text-on-surface-variant mt-0.5">Perbarui rincian identitas dan informasi kontak mitra <strong>{{ $supplier->name }}</strong>.</p>
+                <h2 class="font-display-lg text-xl sm:text-display-lg text-on-surface tracking-tight">Edit Data Supplier</h2>
+                <p class="font-body-md text-xs sm:text-sm text-on-surface-variant mt-0.5">Perbarui rincian identitas dan informasi kontak mitra <strong>{{ $supplier->name }}</strong>.</p>
             </div>
-            <div class="flex items-center gap-3 shrink-0">
-                <a href="{{ route('suppliers.index') }}" class="px-5 py-2.5 bg-white border border-border text-on-surface rounded-xl font-semibold hover:bg-canvas transition-all flex items-center gap-2 text-sm shadow-xs">
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0 w-full sm:w-auto">
+                <a href="{{ route('suppliers.index') }}" class="flex-1 sm:flex-none justify-center px-4 sm:px-5 py-2.5 bg-white border border-border text-on-surface rounded-xl font-semibold hover:bg-canvas transition-all flex items-center gap-2 text-xs sm:text-sm shadow-xs">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
                     Batal
                 </a>
-                <button type="submit" form="edit-supplier-form" class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 shadow-lg shadow-primary/25 transition-all active:scale-95 text-sm">
+                <button type="submit" form="edit-supplier-form" class="flex-1 sm:flex-none justify-center bg-primary hover:bg-primary/90 text-white px-4 sm:px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 shadow-lg shadow-primary/25 transition-all active:scale-95 text-xs sm:text-sm">
                     <span class="material-symbols-outlined text-sm">save</span>
                     Perbarui Supplier
                 </button>

@@ -1,17 +1,17 @@
 <x-layouts.app title="Master Produk - Fixoria Sales">
-    <div class="p-6 md:p-8 space-y-6">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6">
         <!-- Page Header -->
-        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <h2 class="font-display-lg text-display-lg text-on-surface">Data Produk</h2>
+                <h2 class="font-display-lg text-xl sm:text-display-lg text-on-surface">Data Produk</h2>
                 <nav class="flex text-xs text-secondary items-center gap-2 mt-1">
                     <a class="hover:text-primary transition-colors" href="{{ route('dashboard') }}">Dashboard</a>
                     <span class="material-symbols-outlined text-[14px]">chevron_right</span>
                     <span class="text-on-surface font-semibold">Master Produk</span>
                 </nav>
             </div>
-            <a href="{{ route('products.create') }}" class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm active:scale-95 shrink-0">
-                <span class="material-symbols-outlined text-[20px]">add</span>
+            <a href="{{ route('products.create') }}" class="bg-primary-container hover:bg-primary text-white px-4 sm:px-5 py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all font-body-md text-xs sm:text-sm shadow-sm active:scale-95 shrink-0">
+                <span class="material-symbols-outlined text-[18px] sm:text-[20px]">add</span>
                 <span>Tambah Produk Baru</span>
             </a>
         </header>
@@ -32,8 +32,8 @@
         <!-- Filter Area -->
         <div class="surface-card rounded-xl p-4 border border-border/50">
             <form action="{{ route('products.index') }}" method="GET" class="flex flex-col lg:flex-row items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-3 w-full grow">
-                    <div class="relative grow min-w-[240px] flex items-center">
+                <div class="flex flex-col sm:flex-row flex-wrap items-center gap-3 w-full grow">
+                    <div class="relative w-full sm:grow sm:min-w-[240px] flex items-center">
                         <span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">search</span>
                         <input class="w-full h-10 pl-10 pr-4 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan Nama atau SKU..." type="text">
                     </div>
@@ -53,13 +53,15 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="h-10 flex items-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors shrink-0">
-                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
-                        Cari
-                    </button>
-                    @if(request('search') || request('category_id') || request('supplier_id'))
-                        <a href="{{ route('products.index') }}" class="h-10 flex items-center px-3 text-xs text-secondary hover:text-primary transition-colors shrink-0">Reset</a>
-                    @endif
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button type="submit" class="h-10 flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 border border-border rounded-lg text-sm font-medium text-on-surface-variant hover:bg-canvas transition-colors shrink-0">
+                            <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Cari
+                        </button>
+                        @if(request('search') || request('category_id') || request('supplier_id'))
+                            <a href="{{ route('products.index') }}" class="h-10 flex items-center justify-center px-3 text-xs text-secondary hover:text-primary transition-colors shrink-0">Reset</a>
+                        @endif
+                    </div>
                 </div>
             </form>
         </div>
@@ -160,8 +162,8 @@
             </div>
 
             <!-- Pagination Footer -->
-            <div class="px-6 py-4 bg-white border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="font-body-md text-on-surface-variant text-sm">
+            <div class="px-4 sm:px-6 py-4 bg-white border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <p class="font-body-md text-on-surface-variant text-xs sm:text-sm">
                     Menampilkan <span class="font-bold text-on-surface">{{ $products->firstItem() ?? 0 }} - {{ $products->lastItem() ?? 0 }}</span> dari <span class="font-bold text-on-surface">{{ $products->total() }}</span> produk
                 </p>
                 <div>

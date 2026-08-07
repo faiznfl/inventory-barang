@@ -1,9 +1,9 @@
 <x-layouts.app title="Transaksi Mutasi Stok - Fixoria Sales">
-    <div class="p-8 space-y-8">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
         <!-- Header & Title -->
         <div>
-            <h2 class="font-display text-3xl font-bold text-on-surface tracking-tight">Transaksi Mutasi Stok</h2>
-            <p class="text-on-surface-variant font-body-md mt-1">Kelola pergerakan stok barang masuk dan keluar gudang secara real-time.</p>
+            <h2 class="font-display text-xl sm:text-3xl font-bold text-on-surface tracking-tight">Transaksi Mutasi Stok</h2>
+            <p class="text-on-surface-variant text-xs sm:text-sm font-body-md mt-1">Kelola pergerakan stok barang masuk dan keluar gudang secara real-time.</p>
         </div>
 
         <!-- Flash Messages -->
@@ -36,29 +36,29 @@
         @endif
 
         <!-- Tab Navigation -->
-        <div class="flex border-b border-border gap-8">
-            <button class="pb-4 text-sm font-bold border-b-2 border-primary text-primary transition-all focus:outline-none cursor-pointer" id="tab-masuk" onclick="switchTab('masuk')" type="button">
+        <div class="flex overflow-x-auto border-b border-border gap-4 sm:gap-8 pb-1 whitespace-nowrap no-scrollbar">
+            <button class="pb-3 text-xs sm:text-sm font-bold border-b-2 border-primary text-primary transition-all focus:outline-none cursor-pointer shrink-0" id="tab-masuk" onclick="switchTab('masuk')" type="button">
                 Input Barang Masuk
             </button>
-            <button class="pb-4 text-sm font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all focus:outline-none cursor-pointer" id="tab-keluar" onclick="switchTab('keluar')" type="button">
+            <button class="pb-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all focus:outline-none cursor-pointer shrink-0" id="tab-keluar" onclick="switchTab('keluar')" type="button">
                 Input Barang Keluar
             </button>
-            <button class="pb-4 text-sm font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all focus:outline-none cursor-pointer" id="tab-riwayat" onclick="switchTab('riwayat')" type="button">
+            <button class="pb-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-all focus:outline-none cursor-pointer shrink-0" id="tab-riwayat" onclick="switchTab('riwayat')" type="button">
                 Riwayat Mutasi / Log
             </button>
         </div>
 
         <!-- Tab Content 1: Barang Masuk -->
         <div class="tab-content transition-all duration-300" id="content-masuk">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Form Section -->
                 <div class="lg:col-span-2 space-y-6">
-                    <div class="surface-card p-8">
-                        <h3 class="font-display text-xl font-bold mb-6 text-on-surface flex items-center gap-2">
+                    <div class="surface-card p-4 sm:p-6 lg:p-8">
+                        <h3 class="font-display text-lg sm:text-xl font-bold mb-6 text-on-surface flex items-center gap-2">
                             <span class="material-symbols-outlined text-green-600">add_circle</span>
                             Pencatatan Barang Masuk
                         </h3>
-                        <form action="{{ route('stock-transactions.store') }}" method="POST" class="grid grid-cols-2 gap-6">
+                        <form action="{{ route('stock-transactions.store') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             @csrf
                             <input type="hidden" name="type" value="in">
 
@@ -70,7 +70,7 @@
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">No. Referensi / PO <span class="text-error">*</span></label>
                                 <input name="reference_no" class="h-11 px-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md" placeholder="EXP: PO-2024-001" value="{{ old('reference_no') }}" required type="text">
                             </div>
-                            <div class="flex flex-col gap-1.5 col-span-2">
+                            <div class="flex flex-col gap-1.5 sm:col-span-2">
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pilih Produk (SKU / Nama) <span class="text-error">*</span></label>
                                 <select name="product_id" id="product_id_in" onchange="updateInSummary()" required class="w-full h-11 px-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md bg-white">
                                     <option value="">-- Pilih Produk --</option>
@@ -89,12 +89,12 @@
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Satuan</label>
                                 <input id="unit_in_display" readonly class="h-11 px-4 rounded-lg border border-border bg-canvas text-on-surface-variant outline-none text-body-md" value="PCS">
                             </div>
-                            <div class="flex flex-col gap-1.5 col-span-2">
+                            <div class="flex flex-col gap-1.5 sm:col-span-2">
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Catatan / Keterangan</label>
                                 <textarea name="notes" class="p-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md resize-none" placeholder="Tambahkan informasi tambahan jika diperlukan..." rows="3">{{ old('notes') }}</textarea>
                             </div>
-                            <div class="col-span-2 pt-4">
-                                <button class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer" type="submit">
+                            <div class="sm:col-span-2 pt-4">
+                                <button class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-sm" type="submit">
                                     <span class="material-symbols-outlined">save</span>
                                     Proses Transaksi Masuk
                                 </button>
@@ -143,14 +143,14 @@
 
         <!-- Tab Content 2: Barang Keluar -->
         <div class="tab-content hidden" id="content-keluar">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 <div class="lg:col-span-2 space-y-6">
-                    <div class="surface-card p-8">
-                        <h3 class="font-display text-xl font-bold mb-6 text-on-surface flex items-center gap-2">
+                    <div class="surface-card p-4 sm:p-6 lg:p-8">
+                        <h3 class="font-display text-lg sm:text-xl font-bold mb-6 text-on-surface flex items-center gap-2">
                             <span class="material-symbols-outlined text-error">remove_circle</span>
                             Pencatatan Barang Keluar
                         </h3>
-                        <form action="{{ route('stock-transactions.store') }}" method="POST" class="grid grid-cols-2 gap-6">
+                        <form action="{{ route('stock-transactions.store') }}" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             @csrf
                             <input type="hidden" name="type" value="out">
 
@@ -162,7 +162,7 @@
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">No. Referensi / DO <span class="text-error">*</span></label>
                                 <input name="reference_no" class="h-11 px-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md" placeholder="EXP: DO-2024-089" value="{{ old('reference_no') }}" required type="text">
                             </div>
-                            <div class="flex flex-col gap-1.5 col-span-2">
+                            <div class="flex flex-col gap-1.5 sm:col-span-2">
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pilih Produk (SKU / Nama) <span class="text-error">*</span></label>
                                 <select name="product_id" id="product_id_out" onchange="updateOutSummary()" required class="w-full h-11 px-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md bg-white">
                                     <option value="">-- Pilih Produk --</option>
@@ -185,12 +185,12 @@
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Satuan</label>
                                 <input id="unit_out_display" readonly class="h-11 px-4 rounded-lg border border-border bg-canvas text-on-surface-variant outline-none text-body-md" value="PCS">
                             </div>
-                            <div class="flex flex-col gap-1.5 col-span-2">
+                            <div class="flex flex-col gap-1.5 sm:col-span-2">
                                 <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Catatan / Keterangan</label>
                                 <textarea name="notes" class="p-4 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md resize-none" placeholder="Masukkan informasi catatan tujuan mutasi keluar..." rows="3">{{ old('notes') }}</textarea>
                             </div>
-                            <div class="col-span-2 pt-4">
-                                <button class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer" type="submit">
+                            <div class="sm:col-span-2 pt-4">
+                                <button class="w-full h-12 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-sm" type="submit">
                                     <span class="material-symbols-outlined">save</span>
                                     Proses Transaksi Keluar
                                 </button>

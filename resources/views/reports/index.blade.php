@@ -1,28 +1,28 @@
 <x-layouts.app title="Laporan & Ekspor Data - Fixoria Sales">
-    <div class="p-8 space-y-8">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
         <!-- Top App Bar Content -->
         <header class="flex justify-between items-center">
             <div>
-                <h1 class="font-display-lg text-display-lg text-on-surface mb-1">Laporan & Ekspor Data</h1>
-                <p class="text-on-surface-variant font-body-md text-body-md">Pantau rekapitulasi mutasi stok dan unduh laporan dalam berbagai format.</p>
+                <h1 class="font-display-lg text-xl sm:text-display-lg text-on-surface mb-1">Laporan & Ekspor Data</h1>
+                <p class="text-on-surface-variant font-body-md text-xs sm:text-body-md">Pantau rekapitulasi mutasi stok dan unduh laporan dalam berbagai format.</p>
             </div>
-            <div class="flex items-center gap-3">
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant" type="button">
+            <div class="hidden sm:flex items-center gap-3">
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant" type="button" title="Bantuan">
                     <span class="material-symbols-outlined">help_outline</span>
                 </button>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant" type="button">
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface-variant" type="button" title="Notifikasi">
                     <span class="material-symbols-outlined">notifications</span>
                 </button>
             </div>
         </header>
 
         <!-- Report Filter Panel -->
-        <section class="surface-card rounded-xl p-6 border border-border">
+        <section class="surface-card rounded-xl p-4 sm:p-6 border border-border">
             <form method="GET" action="{{ route('reports.index') }}">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
                     <!-- Filters -->
-                    <div class="lg:col-span-8 flex flex-wrap gap-4 items-end">
-                        <div class="w-full sm:w-auto min-w-[280px]">
+                    <div class="lg:col-span-8 flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-end">
+                        <div class="w-full sm:w-auto sm:min-w-[260px]">
                             <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Rentang Tanggal</label>
                             <div class="flex items-center gap-2">
                                 <div class="relative flex-1">
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full sm:w-auto min-w-[160px]">
+                        <div class="w-full sm:w-auto sm:min-w-[150px]">
                             <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Jenis Mutasi</label>
                             <select name="type" class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
                                 <option value="">Semua</option>
@@ -44,7 +44,7 @@
                                 <option value="out" {{ request('type') == 'out' ? 'selected' : '' }}>Barang Keluar</option>
                             </select>
                         </div>
-                        <div class="w-full sm:w-auto min-w-[160px]">
+                        <div class="w-full sm:w-auto sm:min-w-[150px]">
                             <label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Kategori</label>
                             <select name="category_id" class="w-full h-10 px-4 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary focus:border-transparent text-sm outline-none">
                                 <option value="">Semua Kategori</option>
@@ -53,26 +53,26 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button class="h-10 px-6 bg-primary text-white rounded-lg font-body-md text-body-md hover:bg-surface-tint transition-all flex items-center gap-2 shadow-sm" type="submit">
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button class="h-10 px-5 flex-1 sm:flex-none justify-center bg-primary text-white rounded-lg font-body-md text-sm hover:bg-surface-tint transition-all flex items-center gap-2 shadow-sm" type="submit">
                                 <span class="material-symbols-outlined text-[18px]">filter_list</span>
                                 Filter
                             </button>
                             @if(request()->hasAny(['start_date', 'end_date', 'type', 'category_id']))
-                                <a href="{{ route('reports.index') }}" class="h-10 px-3 border border-border text-on-surface-variant rounded-lg font-body-md text-sm hover:bg-surface-container-low transition-all flex items-center gap-1" title="Reset Filter">
+                                <a href="{{ route('reports.index') }}" class="h-10 px-3 border border-border text-on-surface-variant rounded-lg font-body-md text-sm hover:bg-surface-container-low transition-all flex items-center justify-center gap-1" title="Reset Filter">
                                     <span class="material-symbols-outlined text-[18px]">restart_alt</span>
                                 </a>
                             @endif
                         </div>
                     </div>
                     <!-- Export Actions -->
-                    <div class="lg:col-span-4 flex justify-end items-end gap-3">
-                        <a href="{{ route('reports.export.pdf', request()->query()) }}" target="_blank" class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
-                            <span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform">picture_as_pdf</span>
+                    <div class="lg:col-span-4 flex flex-wrap items-center sm:items-end justify-start sm:justify-end gap-3 pt-2 lg:pt-0">
+                        <a href="{{ route('reports.export.pdf', request()->query()) }}" target="_blank" class="export-btn h-10 px-4 flex-1 sm:flex-none justify-center border border-border rounded-lg font-body-md text-xs sm:text-sm text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
+                            <span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform text-lg">picture_as_pdf</span>
                             Ekspor PDF
                         </a>
-                        <a href="{{ route('reports.export.csv', request()->query()) }}" class="export-btn h-10 px-4 border border-border rounded-lg font-body-md text-body-md text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
-                            <span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform">description</span>
+                        <a href="{{ route('reports.export.csv', request()->query()) }}" class="export-btn h-10 px-4 flex-1 sm:flex-none justify-center border border-border rounded-lg font-body-md text-xs sm:text-sm text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2 group">
+                            <span class="material-symbols-outlined text-tertiary group-hover:scale-110 transition-transform text-lg">description</span>
                             CSV / Excel
                         </a>
                     </div>
@@ -83,7 +83,7 @@
         <!-- Report Preview Table -->
         <section class="surface-card rounded-xl border border-border overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead>
                         <tr class="bg-surface-container-low border-b border-border">
                             <th class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Tanggal</th>

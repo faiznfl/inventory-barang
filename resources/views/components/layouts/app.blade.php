@@ -159,45 +159,51 @@
     </style>
 </head>
 <body class="font-body-md text-body-md h-screen w-screen flex overflow-hidden">
+    <!-- Backdrop Overlay for Mobile Sidebar -->
+    <div id="mobile-sidebar-backdrop" onclick="closeSidebar()" class="fixed inset-0 bg-gray-900/50 backdrop-blur-xs z-40 lg:hidden hidden transition-opacity"></div>
+
     <!-- Sidebar Navigation -->
-    <aside class="w-64 bg-white border-r border-border flex flex-col h-screen shrink-0 z-50">
+    <aside id="sidebar-drawer" class="fixed lg:static inset-y-0 left-0 w-64 bg-white border-r border-border flex flex-col h-screen shrink-0 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Brand Identity -->
-        <div class="px-6 py-8">
+        <div class="px-6 py-6 lg:py-8 flex items-center justify-between">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white shrink-0">
                     <span class="material-symbols-outlined fill-icon">inventory_2</span>
                 </div>
-                <h1 class="font-display-lg text-display-lg text-primary tracking-tight">Fixoria Sales</h1>
+                <h1 class="font-display-lg text-display-lg text-primary tracking-tight truncate">Fixoria Sales</h1>
             </a>
+            <button onclick="closeSidebar()" type="button" class="lg:hidden p-1 text-secondary hover:bg-surface-container-low rounded-lg transition-colors ml-auto" title="Tutup Menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
 
         <!-- Navigation Menu -->
         <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('dashboard') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('dashboard') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('dashboard') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('dashboard') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('dashboard') ? 'fill-icon' : '' }}">dashboard</span>
                 <span class="font-semibold">Dashboard</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('products.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('products.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('products.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('products.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('products.*') ? 'fill-icon' : '' }}">inventory_2</span>
                 <span class="font-semibold">Master Produk</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('categories.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('categories.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('categories.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('categories.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('categories.*') ? 'fill-icon' : '' }}">category</span>
                 <span class="font-semibold">Kategori</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('suppliers.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('suppliers.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('suppliers.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('suppliers.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('suppliers.*') ? 'fill-icon' : '' }}">local_shipping</span>
                 <span class="font-semibold">Supplier</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('stock-transactions.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('stock-transactions.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('stock-transactions.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('stock-transactions.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('stock-transactions.*') ? 'fill-icon' : '' }}">swap_horiz</span>
                 <span class="font-semibold">Transaksi Stok</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('reports.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('reports.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('reports.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('reports.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('reports.*') ? 'fill-icon' : '' }}">assessment</span>
                 <span class="font-semibold">Laporan</span>
             </a>
-            <a class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('users.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('users.index') }}">
+            <a onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 {{ request()->routeIs('users.*') ? 'sidebar-item-active' : 'text-secondary hover:bg-surface-container-low' }} rounded-lg transition-all" href="{{ route('users.index') }}">
                 <span class="material-symbols-outlined {{ request()->routeIs('users.*') ? 'fill-icon' : '' }}">manage_accounts</span>
                 <span class="font-semibold">Pengguna & Role</span>
             </a>
@@ -205,7 +211,7 @@
 
         <!-- User Profile Section -->
         <div class="p-4 mt-auto border-t border-border">
-            <div class="bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+            <div class="bg-surface-container-low rounded-xl p-3 sm:p-4 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-primary-container text-white font-bold flex items-center justify-center text-sm shrink-0">
                     AW
                 </div>
@@ -215,7 +221,7 @@
                 </div>
                 <form method="POST" action="{{ route('login') }}" class="inline">
                     @csrf
-                    <a href="{{ route('login') }}" class="text-secondary hover:text-error transition-colors" title="Logout">
+                    <a href="{{ route('login') }}" class="text-secondary hover:text-error transition-colors p-1" title="Logout">
                         <span class="material-symbols-outlined">logout</span>
                     </a>
                 </form>
@@ -226,41 +232,46 @@
     <!-- Main Content Canvas -->
     <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto scroll-smooth">
         <!-- TopAppBar -->
-        <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-border/50 shrink-0">
-            <div class="flex-1 max-w-xl flex items-center h-full">
+        <header class="h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-border/50 shrink-0 gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 flex-1 max-w-xl">
+                <!-- Hamburger Button for Mobile/Tablet -->
+                <button onclick="toggleSidebar()" type="button" class="lg:hidden p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all shrink-0" title="Buka Menu">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+
                 @php
                     $searchAction = route('products.index');
-                    $searchPlaceholder = 'Cari data produk, SKU, supplier...';
+                    $searchPlaceholder = 'Cari produk, SKU...';
 
                     if (request()->routeIs('categories.*')) {
                         $searchAction = route('categories.index');
-                        $searchPlaceholder = 'Cari nama kategori...';
+                        $searchPlaceholder = 'Cari kategori...';
                     } elseif (request()->routeIs('suppliers.*')) {
                         $searchAction = route('suppliers.index');
-                        $searchPlaceholder = 'Cari nama supplier, email, telepon...';
+                        $searchPlaceholder = 'Cari supplier...';
                     } elseif (request()->routeIs('products.*')) {
                         $searchAction = route('products.index');
-                        $searchPlaceholder = 'Cari nama produk, SKU...';
+                        $searchPlaceholder = 'Cari produk, SKU...';
                     }
                 @endphp
                 <form action="{{ $searchAction }}" method="GET" class="relative flex items-center w-full h-10 my-auto group" id="global-header-search-form">
-                    <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center text-outline group-focus-within:text-primary transition-colors hover:text-primary focus:outline-none" title="Cari">
-                        <span class="material-symbols-outlined text-[20px]">search</span>
+                    <button type="submit" class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center text-outline group-focus-within:text-primary transition-colors hover:text-primary focus:outline-none" title="Cari">
+                        <span class="material-symbols-outlined text-[18px] sm:text-[20px]">search</span>
                     </button>
-                    <input id="global-header-search" name="search" value="{{ request('search') }}" class="w-full h-10 bg-canvas border border-transparent focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 pr-4 text-sm transition-all outline-none" placeholder="{{ $searchPlaceholder }}" type="text" autocomplete="off">
+                    <input id="global-header-search" name="search" value="{{ request('search') }}" class="w-full h-9 sm:h-10 bg-canvas border border-transparent focus:border-primary/30 focus:bg-white focus:ring-2 focus:ring-primary/20 rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 text-xs sm:text-sm transition-all outline-none" placeholder="{{ $searchPlaceholder }}" type="text" autocomplete="off">
                 </form>
             </div>
-            <div class="flex items-center gap-6">
-                <button class="relative p-2 text-secondary hover:bg-surface-container-low rounded-full transition-all" type="button">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+                <button class="relative p-1.5 sm:p-2 text-secondary hover:bg-surface-container-low rounded-full transition-all" type="button" title="Notifikasi">
+                    <span class="material-symbols-outlined text-[22px] sm:text-[24px]">notifications</span>
+                    <span class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
                 </button>
-                <button class="p-2 text-secondary hover:bg-surface-container-low rounded-full transition-all" type="button">
-                    <span class="material-symbols-outlined">help_outline</span>
+                <button class="p-1.5 sm:p-2 text-secondary hover:bg-surface-container-low rounded-full transition-all hidden sm:block" type="button" title="Bantuan">
+                    <span class="material-symbols-outlined text-[22px] sm:text-[24px]">help_outline</span>
                 </button>
-                <div class="h-6 w-px bg-border"></div>
-                <div class="flex items-center gap-2">
-                    <span class="text-sm font-semibold text-on-surface">ID Sales: FX-8892</span>
+                <div class="h-6 w-px bg-border hidden md:block"></div>
+                <div class="hidden md:flex items-center gap-2">
+                    <span class="text-xs sm:text-sm font-semibold text-on-surface">ID Sales: FX-8892</span>
                 </div>
             </div>
         </header>
@@ -269,16 +280,38 @@
         {{ $slot }}
 
         <!-- Footer -->
-        <footer class="mt-auto px-8 py-6 border-t border-border flex items-center justify-between text-secondary">
-            <p class="font-label-sm text-label-sm">© 2024 Fixoria Sales. All rights reserved.</p>
-            <div class="flex gap-6">
-                <a class="font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                <a class="font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
-                <a class="font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
+        <footer class="mt-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-secondary text-center sm:text-left">
+            <p class="font-label-sm text-xs sm:text-label-sm">© 2024 Fixoria Sales. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                <a class="font-label-sm text-xs sm:text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                <a class="font-label-sm text-xs sm:text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+                <a class="font-label-sm text-xs sm:text-label-sm hover:text-primary transition-colors" href="#">Contact Support</a>
             </div>
         </footer>
     </main>
+
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-drawer');
+            const backdrop = document.getElementById('mobile-sidebar-backdrop');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar-drawer');
+            const backdrop = document.getElementById('mobile-sidebar-backdrop');
+            if (sidebar && backdrop) {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const headerSearch = document.getElementById('global-header-search');
             const localUserSearch = document.getElementById('user-search-input');

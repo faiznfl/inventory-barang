@@ -1,5 +1,5 @@
 <x-layouts.app title="Manajemen Pengguna & Role - Fixoria Sales">
-    <div class="p-8 space-y-8">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
         <!-- Flash Messages -->
         @if(session('success'))
             <div class="p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl flex items-center gap-3 text-sm font-semibold shadow-sm">
@@ -28,30 +28,30 @@
         @endif
 
         <!-- Page Header -->
-        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <h1 class="font-display-lg text-display-lg text-on-surface">Manajemen Pengguna & Role</h1>
-                <p class="text-on-surface-variant font-body-md text-body-md mt-1">Kelola akun pengguna sistem, peran (role), dan hak akses inventaris.</p>
+                <h1 class="font-display-lg text-xl sm:text-display-lg text-on-surface">Manajemen Pengguna & Role</h1>
+                <p class="text-on-surface-variant font-body-md text-xs sm:text-body-md mt-1">Kelola akun pengguna sistem, peran (role), dan hak akses inventaris.</p>
             </div>
-            <div class="flex items-center gap-3">
-                <button class="bg-white border border-border text-on-surface hover:bg-surface-container-low px-4 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm" onclick="document.getElementById('modal-add-role').classList.remove('hidden')" type="button">
-                    <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                <button class="flex-1 sm:flex-none justify-center bg-white border border-border text-on-surface hover:bg-surface-container-low px-3 sm:px-4 py-2.5 rounded-lg flex items-center gap-2 transition-all text-xs sm:text-sm font-body-md shadow-sm" onclick="document.getElementById('modal-add-role').classList.remove('hidden')" type="button">
+                    <span class="material-symbols-outlined text-[18px] sm:text-[20px]">admin_panel_settings</span>
                     Tambah Role Baru
                 </button>
-                <button class="bg-primary-container hover:bg-primary text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all font-body-md shadow-sm" onclick="document.getElementById('modal-add-user').classList.remove('hidden')" type="button">
-                    <span class="material-symbols-outlined text-[20px]">person_add</span>
+                <button class="flex-1 sm:flex-none justify-center bg-primary-container hover:bg-primary text-white px-4 sm:px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all text-xs sm:text-sm font-body-md shadow-sm" onclick="document.getElementById('modal-add-user').classList.remove('hidden')" type="button">
+                    <span class="material-symbols-outlined text-[18px] sm:text-[20px]">person_add</span>
                     Tambah User Baru
                 </button>
             </div>
         </header>
 
         <!-- Tab Navigation -->
-        <div class="flex border-b border-border gap-8">
-            <button class="pb-4 text-sm {{ ($activeTab ?? 'users') === 'users' ? 'font-bold border-b-2 border-primary text-primary' : 'font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface' }} transition-all focus:outline-none flex items-center gap-2" id="tab-users" onclick="switchUserTab('users')" type="button">
+        <div class="flex overflow-x-auto border-b border-border gap-4 sm:gap-8 pb-1 whitespace-nowrap no-scrollbar">
+            <button class="pb-3 text-xs sm:text-sm {{ ($activeTab ?? 'users') === 'users' ? 'font-bold border-b-2 border-primary text-primary' : 'font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface' }} transition-all focus:outline-none flex items-center gap-2 shrink-0" id="tab-users" onclick="switchUserTab('users')" type="button">
                 <span class="material-symbols-outlined text-[18px]">group</span>
                 Daftar Pengguna
             </button>
-            <button class="pb-4 text-sm {{ ($activeTab ?? '') === 'roles' ? 'font-bold border-b-2 border-primary text-primary' : 'font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface' }} transition-all focus:outline-none flex items-center gap-2" id="tab-roles" onclick="switchUserTab('roles')" type="button">
+            <button class="pb-3 text-xs sm:text-sm {{ ($activeTab ?? '') === 'roles' ? 'font-bold border-b-2 border-primary text-primary' : 'font-semibold border-b-2 border-transparent text-on-surface-variant hover:text-on-surface' }} transition-all focus:outline-none flex items-center gap-2 shrink-0" id="tab-roles" onclick="switchUserTab('roles')" type="button">
                 <span class="material-symbols-outlined text-[18px]">shield</span>
                 Peran & Hak Akses (Roles)
             </button>
@@ -62,13 +62,13 @@
             <!-- Filter Bar -->
             <form method="GET" action="{{ route('users.index') }}" id="user-filter-form">
                 <input type="hidden" name="tab" value="users">
-                <div class="surface-card p-4 flex flex-col md:flex-row gap-4 items-center justify-between border border-border/50">
-                    <div class="flex flex-wrap items-center gap-4 w-full md:w-auto grow max-w-2xl">
-                        <div class="relative grow min-w-[240px]">
+                <div class="surface-card p-4 flex flex-col lg:flex-row gap-4 items-center justify-between border border-border/50">
+                    <div class="flex flex-col sm:flex-row flex-wrap items-center gap-3 w-full lg:w-auto grow max-w-2xl">
+                        <div class="relative w-full sm:grow sm:min-w-[220px]">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
                             <input class="w-full pl-10 pr-4 py-2 bg-white border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="user-search-input" name="search" value="{{ request('search') }}" placeholder="Cari nama, email, atau role..." type="text">
                         </div>
-                        <div class="min-w-[160px]">
+                        <div class="w-full sm:w-auto sm:min-w-[150px]">
                             <select name="role" onchange="this.form.submit()" class="w-full bg-white border border-border rounded-lg py-2 px-3 text-sm focus:ring-primary focus:border-primary outline-none">
                                 <option value="">Semua Role</option>
                                 @foreach($roles ?? [] as $r)
@@ -76,21 +76,23 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="min-w-[140px]">
+                        <div class="w-full sm:w-auto sm:min-w-[130px]">
                             <select name="status" onchange="this.form.submit()" class="w-full bg-white border border-border rounded-lg py-2 px-3 text-sm focus:ring-primary focus:border-primary outline-none">
                                 <option value="">Semua Status</option>
                                 <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktif</option>
                                 <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
                             </select>
                         </div>
-                        <button type="submit" class="h-9 px-4 bg-primary text-white rounded-lg text-xs font-semibold hover:bg-surface-tint transition-all">Filter</button>
-                        @if(request()->hasAny(['search', 'role', 'status', 'per_page']))
-                            <a href="{{ route('users.index') }}" class="h-9 px-3 border border-border text-on-surface-variant rounded-lg text-xs font-semibold hover:bg-surface-container-low transition-all flex items-center" title="Reset Filter">
-                                <span class="material-symbols-outlined text-[16px]">restart_alt</span>
-                            </a>
-                        @endif
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button type="submit" class="h-9 px-4 flex-1 sm:flex-none justify-center bg-primary text-white rounded-lg text-xs font-semibold hover:bg-surface-tint transition-all flex items-center gap-1">Filter</button>
+                            @if(request()->hasAny(['search', 'role', 'status', 'per_page']))
+                                <a href="{{ route('users.index') }}" class="h-9 px-3 border border-border text-on-surface-variant rounded-lg text-xs font-semibold hover:bg-surface-container-low transition-all flex items-center justify-center" title="Reset Filter">
+                                    <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-secondary">
+                    <div class="flex items-center gap-2 text-xs sm:text-sm text-secondary self-start lg:self-auto">
                         <span>Show</span>
                         <select name="per_page" onchange="this.form.submit()" class="bg-white border border-border rounded-lg py-1 px-3 text-sm outline-none">
                             <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10</option>
@@ -210,7 +212,7 @@
 
         <!-- Tab Content 2: Peran & Hak Akses (Roles) -->
         <div class="tab-user-content {{ ($activeTab ?? '') === 'roles' ? '' : 'hidden' }} space-y-6" id="content-roles">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 @forelse($roles ?? [] as $roleItem)
                     @php
                         $borderColors = ['admin' => 'border-t-primary', 'manager' => 'border-t-blue-500', 'staff' => 'border-t-emerald-500'];
@@ -220,15 +222,15 @@
                         $badgeTexts = ['admin' => 'Super Admin', 'manager' => 'Manajer', 'staff' => 'Staff'];
                         $badgeText = $badgeTexts[$roleItem->slug] ?? ucfirst($roleItem->slug);
                     @endphp
-                    <div class="surface-card p-6 border-t-4 {{ $borderColor }} flex flex-col justify-between space-y-4">
+                    <div class="surface-card p-5 sm:p-6 border-t-4 {{ $borderColor }} flex flex-col justify-between space-y-4">
                         <div>
                             <div class="flex justify-between items-start">
-                                <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-2xl">{{ $iconName }}</span>
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-xl sm:text-2xl">{{ $iconName }}</span>
                                 </div>
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary uppercase">{{ $badgeText }}</span>
                             </div>
-                            <h3 class="font-bold text-lg text-on-surface mt-4">{{ $roleItem->name }}</h3>
+                            <h3 class="font-bold text-base sm:text-lg text-on-surface mt-4">{{ $roleItem->name }}</h3>
                             <p class="text-xs text-on-surface-variant mt-1">{{ $roleItem->description ?? 'Tidak ada deskripsi role.' }}</p>
                         </div>
                         <div class="space-y-3 pt-2 border-t border-border">
@@ -261,7 +263,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-3 text-center py-12 text-on-surface-variant">
+                    <div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-12 text-on-surface-variant">
                         Belum ada data role. Klik "Tambah Role Baru" untuk menambahkan role.
                     </div>
                 @endforelse
@@ -276,12 +278,12 @@
             <span aria-hidden="true" class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
             <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-border">
                 <div class="px-6 py-4 border-b border-border flex items-center justify-between">
-                    <h3 class="font-display-lg text-display-lg text-on-surface" id="modal-user-title">Tambah User Baru</h3>
+                    <h3 class="font-display-lg text-lg sm:text-display-lg text-on-surface" id="modal-user-title">Tambah User Baru</h3>
                     <button class="text-outline hover:text-on-surface transition-colors" onclick="document.getElementById('modal-add-user').classList.add('hidden')" type="button">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('users.store') }}" class="p-6 space-y-4">
+                <form method="POST" action="{{ route('users.store') }}" class="p-4 sm:p-6 space-y-4">
                     @csrf
                     <div>
                         <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Nama Lengkap <span class="text-error">*</span></label>
@@ -291,7 +293,7 @@
                         <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Alamat Email <span class="text-error">*</span></label>
                         <input name="email" class="w-full px-4 py-2 border border-border rounded-lg text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="user@fixoria.com" type="email" required>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Password <span class="text-error">*</span></label>
                             <input name="password" class="w-full px-4 py-2 border border-border rounded-lg text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="••••••••" type="password" required>
